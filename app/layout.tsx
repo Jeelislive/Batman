@@ -28,6 +28,10 @@ export default function RootLayout({
       className={`${spaceGrotesk.variable} ${geistMono.variable}`}
       suppressHydrationWarning
     >
+      <head>
+        <link rel="preconnect" href="https://image.thum.io" />
+        <link rel="dns-prefetch" href="https://image.thum.io" />
+      </head>
       <body className="min-h-screen bg-black dark:bg-black text-white antialiased">
         <Providers>{children}</Providers>
       </body>

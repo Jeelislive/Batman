@@ -3,13 +3,7 @@
 import { useEffect, useState } from "react";
 import { X, ExternalLink, GitFork } from "lucide-react";
 import type { Project } from "@/data/projects";
-
-function getThumbUrl(url: string, w = 1280) {
-  if (url.includes("github.com/Jeelislive/Github-Analyzer")) {
-    return "https://opengraph.githubassets.com/1/Jeelislive/Github-Analyzer";
-  }
-  return `https://image.thum.io/get/width/${w}/crop/720/noanimate/${url}`;
-}
+import { getThumbUrl } from "@/components/ProjectCard";
 
 interface Props {
   project: Project | null;
@@ -18,11 +12,13 @@ interface Props {
 
 export function ProjectModal({ project: p, onClose }: Props) {
   const [bannerError, setBannerError] = useState(false);
+  const [bannerLoaded, setBannerLoaded] = useState(false);
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
     if (p) {
       setBannerError(false);
+      setBannerLoaded(false);
       requestAnimationFrame(() => setVisible(true));
     } else {
       setVisible(false);
@@ -78,12 +74,16 @@ export function ProjectModal({ project: p, onClose }: Props) {
 
         {/* Banner */}
         <div className="relative aspect-video overflow-hidden rounded-t-xl bg-zinc-900">
+          {!bannerLoaded && !bannerError && (
+            <div className="absolute inset-0 bg-zinc-900 animate-pulse" />
+          )}
           {!bannerError ? (
             // eslint-disable-next-line @next/next/no-img-element
             <img
-              src={getThumbUrl(p.url, 1600)}
+              src={getThumbUrl(p.url, 1280)}
               alt={`${p.name} screenshot`}
-              className="w-full h-full object-cover"
+              className={`w-full h-full object-cover transition-opacity duration-300 ${bannerLoaded ? "opacity-100" : "opacity-0"}`}
+              onLoad={() => setBannerLoaded(true)}
               onError={() => setBannerError(true)}
             />
           ) : (
@@ -176,17 +176,20 @@ export function ProjectModal({ project: p, onClose }: Props) {
             </div>
           </div>
 
-          {/* Gallery */}
+          {/* Gallery — reuse the already-cached banner URL at two crops */}
           <div className="mb-6">
             <p className="text-[9px] font-black uppercase tracking-[0.2em] text-zinc-700 mb-3">— Screenshots</p>
             <div className="grid grid-cols-2 gap-3">
-              {[800, 640].map((w, i) => (
+              {[
+                { w: 1280, opacity: "" },
+                { w: 640, opacity: "opacity-60" },
+              ].map(({ w, opacity }, i) => (
                 <div key={w} className="rounded-lg overflow-hidden border border-white/[0.06] aspect-video bg-zinc-900">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={getThumbUrl(p.url, w)}
                     alt={`${p.name} view ${i + 1}`}
-                    className={`w-full h-full object-cover ${i === 1 ? "opacity-60" : ""}`}
+                    className={`w-full h-full object-cover ${opacity}`}
                     loading="lazy"
                     onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; }}
                   />

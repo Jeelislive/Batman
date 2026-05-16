@@ -4,7 +4,7 @@ import { useState } from "react";
 import { ArrowUpRight } from "lucide-react";
 import type { Project } from "@/data/projects";
 
-function getThumbUrl(url: string, w = 1280) {
+export function getThumbUrl(url: string, w = 640) {
   if (url.includes("github.com/Jeelislive/Github-Analyzer")) {
     return "https://opengraph.githubassets.com/1/Jeelislive/Github-Analyzer";
   }
@@ -19,7 +19,13 @@ interface Props {
 
 export function ProjectCard({ project: p, index, onOpen }: Props) {
   const [imgError, setImgError] = useState(false);
+  const [imgLoaded, setImgLoaded] = useState(false);
   const delay = `${index * 55}ms`;
+
+  function preloadModalImage() {
+    const img = new window.Image();
+    img.src = getThumbUrl(p.url, 1280);
+  }
 
   return (
     <article
@@ -31,6 +37,7 @@ export function ProjectCard({ project: p, index, onOpen }: Props) {
         animate-[fadeUp_0.45s_ease_both]"
       style={{ animationDelay: delay }}
       onClick={() => onOpen(p)}
+      onMouseEnter={preloadModalImage}
       role="button"
       tabIndex={0}
       aria-label={`View ${p.name} project`}
@@ -46,13 +53,18 @@ export function ProjectCard({ project: p, index, onOpen }: Props) {
 
       {/* Screenshot */}
       <div className="relative aspect-video overflow-hidden bg-zinc-900">
+        {/* Shimmer skeleton shown while loading */}
+        {!imgLoaded && !imgError && (
+          <div className="absolute inset-0 bg-zinc-900 animate-pulse" />
+        )}
         {!imgError ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img
-            src={getThumbUrl(p.url)}
+            src={getThumbUrl(p.url, 640)}
             alt={`${p.name} screenshot`}
-            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.05]"
+            className={`w-full h-full object-cover transition-all duration-500 group-hover:scale-[1.05] ${imgLoaded ? "opacity-100" : "opacity-0"}`}
             loading="lazy"
+            onLoad={() => setImgLoaded(true)}
             onError={() => setImgError(true)}
           />
         ) : (
