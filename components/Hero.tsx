@@ -1,6 +1,6 @@
 export function Hero({ count }: { count: number }) {
   return (
-    <section className="relative pt-20 pb-16 px-5 sm:px-8 text-center max-w-6xl mx-auto">
+    <section className="relative pt-20 pb-16 px-5 sm:px-8 text-center">
 
       {/* Status badge */}
       <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#F5C518]/20 bg-[#F5C518]/5 text-xs font-semibold text-[#F5C518] mb-8 tracking-widest uppercase">

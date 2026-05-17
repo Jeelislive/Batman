@@ -8,10 +8,11 @@ export interface Project {
   tags: string[];
   cat: string;
   color: string;
-  emoji: string;
+  icon: string;
   status: "live" | "github";
   hl: { v: string; l: string }[];
   feats: string[];
+  screenshot?: string;
 }
 
 export const projects: Project[] = [
@@ -25,8 +26,9 @@ export const projects: Project[] = [
     tags: ["Next.js", "Supabase", "Groq AI", "GitHub API", "Razorpay", "Three.js", "TypeScript"],
     cat: "SaaS Platform",
     color: "#ea580c",
-    emoji: "🛠️",
+    icon: "Code2",
     status: "live",
+    screenshot: "/screenshots/devscape.png",
     hl: [{ v: "65+", l: "API Routes" }, { v: "20+", l: "Integrations" }, { v: "4", l: "AI Providers" }],
     feats: [
       "13+ source news aggregation with stack-aware filtering",
@@ -48,8 +50,9 @@ export const projects: Project[] = [
     tags: ["Next.js", "Groq", "Deepgram", "Drizzle ORM", "Better Auth", "Razorpay", "Tiptap"],
     cat: "Productivity",
     color: "#7c3aed",
-    emoji: "🎙️",
+    icon: "Mic",
     status: "live",
+    screenshot: "/screenshots/notusai.png",
     hl: [{ v: "15", l: "DB Tables" }, { v: "14+", l: "Languages" }, { v: "25", l: "API Routes" }],
     feats: [
       "Real-time audio recording with Deepgram speaker diarization",
@@ -71,8 +74,9 @@ export const projects: Project[] = [
     tags: ["Next.js", "Claude AI", "Groq", "Supabase", "GitHub API", "Razorpay", "Three.js", "TypeScript"],
     cat: "AI Research",
     color: "#059669",
-    emoji: "🔮",
+    icon: "Sparkles",
     status: "live",
+    screenshot: "/screenshots/subsence.png",
     hl: [{ v: "60+", l: "API Routes" }, { v: "4", l: "AI Providers" }, { v: "10+", l: "Subreddits" }],
     feats: [
       "Claude + Groq streaming chat synthesizing real Reddit discussions",
@@ -85,6 +89,29 @@ export const projects: Project[] = [
     ],
   },
   {
+    id: 12,
+    name: "SystemDesign 101",
+    tagline: "Master complex systems through diagrams & clear explanations",
+    desc: "An educational platform delivering 400+ visual system design guides across 15 topic categories — from APIs and databases to distributed systems, DevOps, and AI/ML. Free, always accessible, and built for engineers preparing for technical interviews or leveling up their architecture knowledge.",
+    url: "https://getsystemdesigns.vercel.app/",
+    github: null,
+    tags: ["Next.js", "TypeScript", "MDX", "System Design", "Education"],
+    cat: "EdTech",
+    color: "#0ea5e9",
+    icon: "Layers",
+    status: "live",
+    screenshot: "/screenshots/systemdesign.png",
+    hl: [{ v: "400+", l: "Visual Guides" }, { v: "15", l: "Categories" }, { v: "Free", l: "Always" }],
+    feats: [
+      "400+ visual system design diagrams and guides",
+      "15 topic categories — APIs, DBs, distributed systems, DevOps, security & more",
+      "Real-world case studies of production-scale architectures",
+      "AI/ML system design patterns and infrastructure breakdowns",
+      "Interview-focused content for FAANG-level system design rounds",
+      "Caching, performance, payment systems & cloud architecture deep-dives",
+    ],
+  },
+  {
     id: 4,
     name: "SkillPack",
     tagline: "110K+ AI agent skills, one command install",
@@ -94,8 +121,9 @@ export const projects: Project[] = [
     tags: ["Next.js", "FastAPI", "Groq AI", "PostgreSQL", "Redis", "Celery", "Python", "TypeScript"],
     cat: "AI Tools",
     color: "#7c3aed",
-    emoji: "⚡",
+    icon: "Zap",
     status: "live",
+    screenshot: "/screenshots/skillpack.png",
     hl: [{ v: "110K+", l: "Skills Indexed" }, { v: "7", l: "Data Sources" }, { v: "5", l: "AI Platforms" }],
     feats: [
       "Groq LLM role-to-bundle matching with natural language queries",
@@ -117,8 +145,9 @@ export const projects: Project[] = [
     tags: ["Next.js", "GitHub API", "TypeScript", "Recharts"],
     cat: "Open Source",
     color: "#0ea5e9",
-    emoji: "🏆",
+    icon: "Trophy",
     status: "live",
+    screenshot: "/screenshots/openrank.png",
     hl: [{ v: "1K+", l: "Projects" }, { v: "Live", l: "Data" }, { v: "GitHub", l: "Powered" }],
     feats: ["Project rankings", "Trend analysis", "Contributor stats", "Category filters"],
   },
@@ -132,8 +161,9 @@ export const projects: Project[] = [
     tags: ["React", "Socket.io", "Node.js", "MongoDB"],
     cat: "Communication",
     color: "#d946ef",
-    emoji: "💬",
+    icon: "MessageSquare",
     status: "live",
+    screenshot: "/screenshots/chat.png",
     hl: [{ v: "RT", l: "Messages" }, { v: "Groups", l: "Channels" }, { v: "Media", l: "Sharing" }],
     feats: ["Real-time messaging", "Group channels", "Media sharing", "Online presence"],
   },
@@ -147,8 +177,9 @@ export const projects: Project[] = [
     tags: ["React", "OpenWeatherMap", "CSS Animations", "Geolocation"],
     cat: "Utility",
     color: "#06b6d4",
-    emoji: "⛅",
+    icon: "CloudSun",
     status: "live",
+    screenshot: "/screenshots/weather.png",
     hl: [{ v: "7-Day", l: "Forecast" }, { v: "Global", l: "Cities" }, { v: "Live", l: "Updates" }],
     feats: ["7-day forecast", "Hourly breakdown", "City search", "Weather maps"],
   },
@@ -162,8 +193,9 @@ export const projects: Project[] = [
     tags: ["React", "GitHub API", "SVG", "Canvas"],
     cat: "Dev Tools",
     color: "#f59e0b",
-    emoji: "📊",
+    icon: "BarChart2",
     status: "live",
+    screenshot: "/screenshots/githubstats.png",
     hl: [{ v: "Custom", l: "Themes" }, { v: "SVG", l: "Export" }, { v: "Stats", l: "Rich" }],
     feats: ["Stats cards", "Language charts", "Streak counter", "Custom color themes"],
   },
@@ -177,7 +209,7 @@ export const projects: Project[] = [
     tags: ["React", "GitHub API", "Charts.js", "Analytics"],
     cat: "Analytics",
     color: "#8b5cf6",
-    emoji: "🔍",
+    icon: "GitBranch",
     status: "github",
     hl: [{ v: "Deep", l: "Analysis" }, { v: "Charts", l: "Visual" }, { v: "OSS", l: "Open Source" }],
     feats: ["Profile deep dive", "Language evolution", "Activity patterns", "Collaboration graph"],
@@ -192,8 +224,9 @@ export const projects: Project[] = [
     tags: ["React", "WebSocket", "Recharts", "Node.js"],
     cat: "Enterprise",
     color: "#ef4444",
-    emoji: "🖥️",
+    icon: "Monitor",
     status: "live",
+    screenshot: "/screenshots/noc.png",
     hl: [{ v: "RT", l: "Monitoring" }, { v: "Smart", l: "Alerts" }, { v: "NOC", l: "Grade" }],
     feats: ["Real-time monitoring", "Alert management", "Performance metrics", "Incident tracking"],
   },
@@ -207,8 +240,9 @@ export const projects: Project[] = [
     tags: ["Next.js", "React", "MongoDB", "Video.js"],
     cat: "EdTech",
     color: "#10b981",
-    emoji: "📚",
+    icon: "BookOpen",
     status: "live",
+    screenshot: "/screenshots/elearning.png",
     hl: [{ v: "Courses", l: "Management" }, { v: "Quiz", l: "System" }, { v: "Certs", l: "Auto" }],
     feats: ["Course creation", "Video lessons", "Progress tracking", "Auto-certificates"],
   },

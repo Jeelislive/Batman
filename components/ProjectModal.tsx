@@ -1,9 +1,13 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { X, ExternalLink, GitFork } from "lucide-react";
+import { X, ExternalLink, GitFork, Code2, Mic, Sparkles, Layers, Zap, Trophy, MessageSquare, CloudSun, BarChart2, GitBranch, Monitor, BookOpen, type LucideIcon } from "lucide-react";
 import type { Project } from "@/data/projects";
-import { getThumbUrl } from "@/components/ProjectCard";
+import { getThumbUrl, getImageSrc } from "@/components/ProjectCard";
+
+const iconMap: Record<string, LucideIcon> = {
+  Code2, Mic, Sparkles, Layers, Zap, Trophy, MessageSquare, CloudSun, BarChart2, GitBranch, Monitor, BookOpen,
+};
 
 interface Props {
   project: Project | null;
@@ -38,6 +42,7 @@ export function ProjectModal({ project: p, onClose }: Props) {
   }, [p]);
 
   if (!p) return null;
+  const Icon = iconMap[p.icon] ?? Code2;
 
   return (
     <div
@@ -80,7 +85,7 @@ export function ProjectModal({ project: p, onClose }: Props) {
           {!bannerError ? (
             // eslint-disable-next-line @next/next/no-img-element
             <img
-              src={getThumbUrl(p.url, 1280)}
+              src={getImageSrc(p, 1280)}
               alt={`${p.name} screenshot`}
               className={`w-full h-full object-cover transition-opacity duration-300 ${bannerLoaded ? "opacity-100" : "opacity-0"}`}
               onLoad={() => setBannerLoaded(true)}
@@ -88,10 +93,10 @@ export function ProjectModal({ project: p, onClose }: Props) {
             />
           ) : (
             <div
-              className="w-full h-full flex items-center justify-center text-8xl"
+              className="w-full h-full flex items-center justify-center"
               style={{ background: `linear-gradient(135deg, ${p.color}18, #000)` }}
             >
-              {p.emoji}
+              <Icon size={72} style={{ color: p.color }} strokeWidth={1} />
             </div>
           )}
           <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-[#080808] to-transparent" />
@@ -102,10 +107,10 @@ export function ProjectModal({ project: p, onClose }: Props) {
           {/* Header */}
           <div className="flex items-start gap-4 mb-5 mt-1">
             <div
-              className="w-12 h-12 rounded-xl flex items-center justify-center text-2xl shrink-0 border border-white/[0.08]"
+              className="w-12 h-12 rounded-xl flex items-center justify-center shrink-0 border border-white/[0.08]"
               style={{ background: `linear-gradient(135deg, ${p.color}18, #000)` }}
             >
-              {p.emoji}
+              <Icon size={22} style={{ color: p.color }} strokeWidth={1.5} />
             </div>
             <div className="flex-1 min-w-0">
               <h2 className="text-xl font-black text-white tracking-tight mb-0.5 uppercase">{p.name}</h2>
@@ -187,7 +192,7 @@ export function ProjectModal({ project: p, onClose }: Props) {
                 <div key={w} className="rounded-lg overflow-hidden border border-white/[0.06] aspect-video bg-zinc-900">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
-                    src={getThumbUrl(p.url, w)}
+                    src={getImageSrc(p, w)}
                     alt={`${p.name} view ${i + 1}`}
                     className={`w-full h-full object-cover ${opacity}`}
                     loading="lazy"

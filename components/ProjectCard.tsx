@@ -1,14 +1,22 @@
 "use client";
 
 import { useState } from "react";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, Code2, Mic, Sparkles, Layers, Zap, Trophy, MessageSquare, CloudSun, BarChart2, GitBranch, Monitor, BookOpen, type LucideIcon } from "lucide-react";
 import type { Project } from "@/data/projects";
+
+const iconMap: Record<string, LucideIcon> = {
+  Code2, Mic, Sparkles, Layers, Zap, Trophy, MessageSquare, CloudSun, BarChart2, GitBranch, Monitor, BookOpen,
+};
 
 export function getThumbUrl(url: string, w = 640) {
   if (url.includes("github.com/Jeelislive/Github-Analyzer")) {
     return "https://opengraph.githubassets.com/1/Jeelislive/Github-Analyzer";
   }
   return `https://image.thum.io/get/width/${w}/crop/720/noanimate/${url}`;
+}
+
+export function getImageSrc(project: { screenshot?: string; url: string }, w = 640): string {
+  return project.screenshot ?? getThumbUrl(project.url, w);
 }
 
 interface Props {
@@ -21,10 +29,11 @@ export function ProjectCard({ project: p, index, onOpen }: Props) {
   const [imgError, setImgError] = useState(false);
   const [imgLoaded, setImgLoaded] = useState(false);
   const delay = `${index * 55}ms`;
+  const Icon = iconMap[p.icon] ?? Code2;
 
   function preloadModalImage() {
     const img = new window.Image();
-    img.src = getThumbUrl(p.url, 1280);
+    img.src = getImageSrc(p, 1280);
   }
 
   return (
@@ -60,7 +69,7 @@ export function ProjectCard({ project: p, index, onOpen }: Props) {
         {!imgError ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img
-            src={getThumbUrl(p.url, 640)}
+            src={getImageSrc(p, 640)}
             alt={`${p.name} screenshot`}
             className={`w-full h-full object-cover transition-all duration-500 group-hover:scale-[1.05] ${imgLoaded ? "opacity-100" : "opacity-0"}`}
             loading="lazy"
@@ -69,10 +78,10 @@ export function ProjectCard({ project: p, index, onOpen }: Props) {
           />
         ) : (
           <div
-            className="w-full h-full flex items-center justify-center text-5xl"
+            className="w-full h-full flex items-center justify-center"
             style={{ background: `linear-gradient(135deg, ${p.color}15, #000)` }}
           >
-            {p.emoji}
+            <Icon size={40} style={{ color: p.color }} strokeWidth={1.5} />
           </div>
         )}
 

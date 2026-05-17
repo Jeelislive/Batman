@@ -25,7 +25,7 @@ export default function Home() {
         <main className="flex-1">
           <Hero count={projects.length} />
 
-          <section className="max-w-6xl mx-auto px-5 sm:px-8 pb-24">
+          <section className="px-5 sm:px-8 lg:px-12 xl:px-16 pb-24">
             <ProjectsGrid />
           </section>
         </main>
